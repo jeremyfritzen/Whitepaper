@@ -1,13 +1,13 @@
-<p style="text-align: center;"><h1>PPIO: A Programmable P2P Storage and Delivery Network </h1></p>
+<p style="text-align: center;"><h1>PPIO: Un réseau Pair à Pair de stockage programmable</h1></p>
 
 <!-- TOC -->
 
-- [1. Abstract](#1-abstract)
+- [1. Résumé](#1-résumé)
 - [2. Introduction](#2-introduction)
 - [3. Solution](#3-solution)
-    - [3.1. Technology Highlights](#31-technology-highlights)
-    - [3.2. P2P Network](#32-p2p-network)
-        - [3.2.1. Data-Driven Scheduling](#321-data-driven-scheduling)
+    - [3.1. Principaux aspects de la technologie](#31-principaux-aspects-de-la-technologie)
+    - [3.2. Réseau P2P](#32-réseaux-p2p)
+        - [3.2.1. Planification orientée Donnée](#321-planification-orientee-donnee)
         - [3.2.2. Distributed Database and Routing](#322-distributed-database-and-routing)
         - [3.2.3. P2P Self-organizing Overlay networks](#323-p2p-self-organizing-overlay-networks)
         - [3.2.4. Optimized Distribution of Popular Content](#324-optimized-distribution-of-popular-content)
@@ -49,11 +49,15 @@
 
 <!-- /TOC -->
 
-# 1. Abstract
+# 1. Résumé
 
-PPIO is a programmable decentralized storage and delivery network. It not only provides more robust and efficient services than existing cloud-based storage platforms such as AWS S3 but also significantly reduces the storage cost. At the same time, PPIO offers better data security and privacy protection. PPIO's well-designed decentralized storage network and incentive mechanism allows it to make use of the vast amount of unused bandwidth and storage resources on the Internet, and provide reliable storage service at much lower cost. PPIO's unique decentralized file system prevents unauthorized access and ensures that all the data can be stored securely and privately. PPIO is designed from the ground up to perform efficiently on a global scale, by leveraging the founding team's experience from designing and running the decentralized network with hundreds of millions of users. PPIO meets the storage needs of both today's Internet businesses and services, and the emerging decentralized applications (DApps).
+<!-- PPIO is a programmable decentralized storage and delivery network. It not only provides more robust and efficient services than existing cloud-based storage platforms such as AWS S3 but also significantly reduces the storage cost. At the same time, PPIO offers better data security and privacy protection. PPIO's well-designed decentralized storage network and incentive mechanism allows it to make use of the vast amount of unused bandwidth and storage resources on the Internet, and provide reliable storage service at much lower cost. PPIO's unique decentralized file system prevents unauthorized access and ensures that all the data can be stored securely and privately. PPIO is designed from the ground up to perform efficiently on a global scale, by leveraging the founding team's experience from designing and running the decentralized network with hundreds of millions of users. PPIO meets the storage needs of both today's Internet businesses and services, and the emerging decentralized applications (DApps).
 
-In this work, PPIO's design goals are explained, followed by the details on how it achieves these goals. It provides in-depth details on its distributed file system, network architecture, and storage workflow. It explains how PPIO can prevent various network attacks, and discusses how it establishes a healthy and sustainable incentive mechanism, economic model and ecosystem.
+In this work, PPIO's design goals are explained, followed by the details on how it achieves these goals. It provides in-depth details on its distributed file system, network architecture, and storage workflow. It explains how PPIO can prevent various network attacks, and discusses how it establishes a healthy and sustainable incentive mechanism, economic model and ecosystem. -->
+
+PPIO est un réseau de stockage décentralisé programmable. Il fournit non seulement des services plus fiables et efficaces que les plateformes Cloud existantes telles que AWS S3, mais le fait surtout en réduisant de façon significative les coûts de stockage. Dans le même temps, PPIO garantit une meilleure sécurité des données et préserve davantage la confidentialité. L'architecture de stockage décentralisé de PPIO et ses mécanismes d'incitation permettent d'utiliser au mieux la bande passante et les capacités de stockage inutilisées à travers Internet tout en mettant à disposition un service de stockage à un coût bien inférieur. Le système de stockage décentralisé unique en son genre de PPIO empêche les accès non autorisés, garantit que toutes les données sont stockées de façon sécurisée tout en préservant leur confidentialité. PPIO a été conçu depuis le départ pour s'exécuter à l'échelle mondiale, en s'appuyant sur l'expérience de ses développeurs dans dans la construction et la maintenance de réseaux décentralisés supportant des dizaines de millions d'utilisateurs. PPIO répond ainsi aux besoins de stockage des entreprises, des services Web, ainsi qu'à l'émergence des applications décentralisées (Aussi appelées DApps).  
+
+Ce livre blanc explique les objectifs de PPIO et les moyens mis en oeuvre pour les atteindre. Il fournit des détails précis sur son système de fichier distribué, son architecture réseau et toute la chaîne de stockage de données. Il explique comment PPIO se protège des différents types d'attaques auxquels il est confronté et quels mécanismes sont mis en place pour garantir un écosystème durable et solide, basé sur un modèle économique incitatif.
 
 # 2. Introduction
 
