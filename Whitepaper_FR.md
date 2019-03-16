@@ -114,7 +114,7 @@ Dans ce chapitre, la solution de PPIO sera détaillée en se focalisant sur les 
 - **Le Consensus** : Les algorithmes "classiques" de consensus de la blockchain, tels que la Preuve de Travail ("Pow" - "Proof of Work"), la Preuve de Participation ("PoS" - "Proof of Stake") et la Preuve de Participation Déléguée ("DPoS" - "Delegated Proof of Stake"), font tous des compromis sur la décentralisation, la sécurité ou la performance. L'algorithme de consensus de PPIO est conçu sur la base de ses propres cas d'utilisation. Il calcule  l'"énergie" fournie par les mineurs en se basant sur leur contribution en termes de stockage ou de bande passante, sélectionne aléatoirement un producteur de bloc via une fonction aléatoire vérifiable ("VRF" - "Verifiable Random Function") [24][25], met en oeuvre une tolérance aux pannes ("BFT" - "Byzantine Fault Tolerance") en se basant sur un système de validation par consensus.Il améliore ainsi l'efficacité du réseau, garantit son intégrité et lui permet de s'éxécuter de façon décentralisée et sûre. Ainsi, cet algorithme de consensus constitue le fondement du marché du stockage massif et à grande échelle de PPIO. 
 
 
-## 3.2. P2P Network
+<!-- ## 3.2. P2P Network
 
 PPIO's founding team developed PPLive and its innovative P2P network and data transmission technologies [4][5][6][7].   
 
@@ -126,10 +126,21 @@ PPIO's founding team developed PPLive and its innovative P2P network and data tr
 
 - 40PB storage combined P2P storage capacity.
 
-By leveraging such experience, PPIO's P2P network is built into a robust, scalable and high-performing data storage and transmission system.
+By leveraging such experience, PPIO's P2P network is built into a robust, scalable and high-performing data storage and transmission system. -->
+## 3.2 Réseau P2P
 
+Les fondateurs de PPIO ont développé PPLive et son réseau P2P novateur ainsi que ses technologies de transmission de données [4][5][6][7].
 
-### 3.2.1. Data-Driven Scheduling
+**Quelques anecdotes au sujet de PPLive** :
+- Il s'agit du seul réseau P2P de transmission et de stockage de données au monde qui opère plus de 500 millions de noeuds;
+
+- Le réseau supporte seulement 10% des coûts d'exploitations d'un réseau de données traditionnel;
+
+- Sa technologie de stockage P2P permet de stocker jusqu'à 40 Peta-octets.
+
+S'appuyant sur cette expérience, le réseau P2P de PPIO est construit pour offrir un système de transmission et de stockage de données robuste, scalable et hautement performant.
+
+<!-- ### 3.2.1. Data-Driven Scheduling
 
 In PPIO‘s system, a storage "Object" is divided into "Segments", each "Segment" is further divided into some "Pieces". For example, one segment can be partitioned into M pieces, and these pieces can be duplicated and stored by N different storage miners. Each of these N miners is also called a “Peer”. A scheduler decides how the M pieces can be downloaded from the N peers so that the segment can be retrieved in a fast, efficient manner, and avoid duplicated pieces to be downloaded. This process is called **Multi-point Download Scheduling**.
 
@@ -138,9 +149,19 @@ Two data-driven scheduling algorithms are developed for the two use cases:
 - File download
 - Media streaming on demand [4]
 
-**File Download**
+**File Download** -->
+### 3.2.1 Ordonnancement orienté données
 
-Summary of the PPIO scheduling algorithm:
+Dans le système PPIO, un "Objet" de stockage ("Storage Object") est divisé en "Segments", chaque segment étant lui-même ensuite divisé en plusieurs "Morceaux" ("Pieces"). Par exemple, un segment peut être partitionné en M morceaux, ces morceaux peuvent ensuite être dupliquées et stockées par N mineurs différents. Chacun de ces N mineurs est aussi appelé un "Paire" ("Peer"). Un ordonnanceur définit comment les M morceax=ux seront téléchargées depuis les N paires, de sorte que chaque segment puisse être récupéré rapidement et de manière efficiente, tout en évitant de retélécharger les morceaux dupliqués. Ce processus est appelé **Ordonnancement de téléchargement multi-point**.
+
+Les algorithmes d'ordonnancement orientés données sont développées pour les 2 cas d'usage suivants : 
+
+- Téléchargement de fichiers
+- Streaming media à la demande [4]
+
+**Téléchargement de fichiers**
+
+<!-- Summary of the PPIO scheduling algorithm:
 
 1. Multiple virtual connections (Tunnels) are established between the user and each peer with the resources, to improve transmission efficiency. UDP based protocols such as KCP or UDT [13] are attempted first to make the connection. If it fails, TCP based protocols will be used instead to adapt to different types of heterogeneous networks.
 2. For each peer, an expected download speed $V_{conn}$ is calculated based on its transmission history. If no history is found, a default empirical value is used.
@@ -149,9 +170,17 @@ Summary of the PPIO scheduling algorithm:
 5. When a piece is received from a virtual connection, the estimated download speed $V_{conn}$ is updated, and another remaining arbitrary piece will be requested from the connection immediately until all the data is downloaded.
 6. When a download request times out, the request is canceled, and all connections to the non-responding peer will be closed. The download requests of the remaining pieces will be re-routed to other peers. In this case, the non-responding peer will also be penalized, and the number of connections that can be established from the peer in future downloads is reduced.  
 
-Based on the experience of building the high-performing P2P network, PPIO's design allows multiple connections to be established from each peer. It significantly improves the overall transmission efficiency of the network, especially for TCP connections, as it works around the low-efficiency problem caused by TCP's conservative flow control.
+Based on the experience of building the high-performing P2P network, PPIO's design allows multiple connections to be established from each peer. It significantly improves the overall transmission efficiency of the network, especially for TCP connections, as it works around the low-efficiency problem caused by TCP's conservative flow control. -->
+Résumé de l'algorithme d'ordonnancement de PPIO : 
 
-**Real-time Data Streaming**
+1. Plusieurs connexions virtuelles (appelées "tunnels") sont établies entre l'utilisateur et chaque paire, afin d'améliorer l'efficacité des transmissions de données. La tentative de connexion se fait d'abord via les protocoles basés sur UDP tels que KCP ou UDT [13]. Si elle échoue, une tentative de connexion est réalisée via les protocoles TCP afin de s'adapter aux différents types de réseaux.
+2. Pour chaque paire, une estimation de la vitesse de téléchargement, notée "$V_{conn}$", est calculée sur la base de son historique de transmission. Si aucun historique n'est disponible, une valeur empirique par défaut est utilisée.
+3. Le nombre de connexions virtuelles pour chaque paire est variable. Un paire avec une valeur $V_{conn}$ plus élevée peuvent avoir un nombre important de connexions virtuelles.
+4. En se basant sur les partitions du segment, l'utilisateur envoie d'abord une demande de téléchargement à un paire donné pour un morceau choisi arbitrairement. Le paire répond ensuite en envoyant à l'utilisateur le morceau demandé.
+5. Quand un morceau est reçu via la connexion virtuelle, la vitesse de téléchargement estimée $V_{conn}$ est mise à jour, et une autre demande de morceau choisi arbitrairement est envoyée immédiatement après et procède ainsi jusqu'à ce que toutes les données soient téléchargées.
+6. Quand une demande de téléchargement expire ("time-out"), la requête est annulée et toutes les connexions avec le paire indisponible sont fermées. Les requêtes de téléchargement des morceaux restants sont re-routées vers d'autres paires. Dans ce cas, le paire indisponible sera aussi pénalisé et le nombre de connexions qui pourront être établies avec lui sera réduit.
+
+<!-- **Real-time Data Streaming**
 
 Besides supporting efficient file download, PPIO also supports optimized P2P data streaming. PPIO's data-driven scheduler is designed to provide stable real-time streaming performance in an ad-hoc P2P network[12]. The technology has gone through many iterations of trial-and-error optimizations and is proven to provide high-quality user experience to streaming applications such as video-on-demand (VOD) service.
 
@@ -161,16 +190,28 @@ A P2P streaming system has the following unique design characteristics:
 
 - Unpopular pieces. The unpopular pieces are the ones with the smallest number of duplicates in the network. In media streaming use case they need to be prioritized during download. This may seem counterintuitive, but prioritizing these pieces will help make downloading of the entire segment much faster and achieve better experience.
 
-- Anchor points. Many media streaming applications allow random access playbacks such as fast forwarding or seeking. Anchor points are placed in the video stream to enable random access. The pieces at the anchor point are prioritized during download, to allow the playback to start immediately after random access.
+- Anchor points. Many media streaming applications allow random access playbacks such as fast forwarding or seeking. Anchor points are placed in the video stream to enable random access. The pieces at the anchor point are prioritized during download, to allow the playback to start immediately after random access. -->
+** Streaming de données en temps réel**
 
-To achieve the design requirements above, a scheduling algorithm is required to make smart decisions on which peer a piece should be downloaded from, how many peers should be used for simultaneous download, how to set up the timer for each peer, how to reschedule remaining pieces and adapt to network changes, etc. The scheduler is also designed to maximize download speed and minimize the overhead of duplicated requests and data transmission. A summary of the scheduling algorithm is as follows:
+En plus de supporter le téléchargement de fichiers de manière efficient, PPIO supporte aussi le streaming otpimisé de données P2P. L'ordonnanceur orienté données de PPIO est conçu pour fournir des performances stables de diffusion de de données (streaming) en temps réel sur un réseau P2P dédié. Après de nombreuses itérations et essais-erreurs, la technologie a été éprouvée et fournit une expérience utilisateur de grande qualité pour le streaming d'applications telles que les services de VOD (Video-on-demand).
+
+Un réseau de streaming P2P présente les caractérisques de conception uniques suivantes :
+
+- Téléchargement séquentiel. Les segments et morceaux qui suivent le point de lecture actuel doivent être priorisés dans l'ordonanncement des téléchargements, afin de maintenir la fluidité de lecture.
+
+- Morceaux impopulaires. Les morceaux impopulaires sont les morceaux qui ont le plus petit nombre de doublons sur le réseau. Dans le cas du streaming, ils doivent être priorisés pendant le téléchargement. Cela peut sembler  paradoxal mais la priorisation de ces morceaux contribuera au téléchargement beaucoup plus rapide de l'ensemle du segment et offrira une meilleure expérience utilisateur.
+
+- Points d'ancrage. Plusieurs applications de streaming permettent des lectures à accès aléatoires telles que l'avance rapide ou la recherche. Des points d'ancrage sont placés dans le flux vidéo pour permettre ces accès. Le téléchargement des morceaux situés sur les points d'ancrage sont alors priorisés afin de permettre la lecture immédiatement après l'accès au point d'ancrage.
+
+<!-- To achieve the design requirements above, a scheduling algorithm is required to make smart decisions on which peer a piece should be downloaded from, how many peers should be used for simultaneous download, how to set up the timer for each peer, how to reschedule remaining pieces and adapt to network changes, etc. The scheduler is also designed to maximize download speed and minimize the overhead of duplicated requests and data transmission. A summary of the scheduling algorithm is as follows:
 
 1. Similar to file download, multiple virtual connections (tunnels) are established with each peer, and the estimated transmission speed $V_{conn}$ is calculated per virtual connection.
 2. Pieces to be downloaded are sorted based on their priorities and pre-allocated to available virtual connections by placing them in the corresponding download queues. The estimated arrival time for each piece can be calculated based on the speed of each virtual connection and the remaining pieces to be downloaded in each queue. In general, pieces with higher priority should end up with an earlier estimated arrival time. An illustration of the pre-allocation algorithm is shown in Figure 3.1.
 3. Step 2 is repeated periodically, and all remaining pieces will be re-allocated to accommodate changes in the transmission speed and availability of the virtual connections.
 4. After a piece is successfully downloaded, the transmission speed of the virtual connection is updated, and a request is sent immediately to download the next piece in the queue.  
 5. Urgent pieces can be requested from multiple connections to ensure smooth playback.
-6. Other parts of the algorithm work the same way as in regular file download.
+6. Other parts of the algorithm work the same way as in regular file download. -->
+Pour implémenter les prérequis de conception ci-dessus, un algorithme d'ordonnancement est nécessaire pour décider intelligemment depuis quel paire sera téléchargé chaque morceau, comment utiliser les paires pour des téléchargements simultanés, le minuteur de chaque paire, replanifier le téléchargement des morceaux restants et s'adapter aux changements sur le réseau, etc. L'ordonnanceur est aussi conçu pour maximiser la vitesse de téléchargement et limiter les requêtes et la transmission de données en doublon. Voici un résumé de l'algoritheme d'ordonnancement :
 
 - **Environment variables of the pre-allocation algorithm**  
 
