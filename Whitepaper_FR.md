@@ -152,9 +152,9 @@ Two data-driven scheduling algorithms are developed for the two use cases:
 **File Download** -->
 ### 3.2.1 Ordonnancement orienté données
 
-Dans le système PPIO, un "Objet" de stockage ("Storage Object") est divisé en "Segments", chaque segment étant lui-même ensuite divisé en plusieurs "Morceaux" ("Pieces"). Par exemple, un segment peut être partitionné en M morceaux, ces morceaux peuvent ensuite être dupliquées et stockées par N mineurs différents. Chacun de ces N mineurs est aussi appelé un "Paire" ("Peer"). Un ordonnanceur définit comment les M morceax=ux seront téléchargées depuis les N paires, de sorte que chaque segment puisse être récupéré rapidement et de manière efficiente, tout en évitant de retélécharger les morceaux dupliqués. Ce processus est appelé **Ordonnancement de téléchargement multi-point**.
+Dans le système PPIO, un "Objet" de stockage ("Storage Object") est divisé en "Segments", chaque segment étant lui-même ensuite divisé en plusieurs "Morceaux" ("Pieces"). Par exemple, un segment peut être partitionné en M morceaux, ces morceaux peuvent ensuite être dupliquées et stockées par N mineurs différents. Chacun de ces N mineurs est aussi appelé un "Paire" ("Peer"). Un ordonnanceur définit comment les M morceaux seront téléchargées depuis les N paires, de sorte que chaque segment puisse être récupéré rapidement et de manière efficiente, tout en évitant de retélécharger les morceaux dupliqués. Ce processus est appelé **Ordonnancement de téléchargement multi-point**.
 
-Les algorithmes d'ordonnancement orientés données sont développées pour les 2 cas d'usage suivants : 
+2 algorithmes d'ordonnancement orientés données sont développés pour répondre aux 2 cas d'usage suivants : 
 
 - Téléchargement de fichiers
 - Streaming media à la demande [4]
@@ -220,7 +220,8 @@ Pour implémenter les prérequis de conception ci-dessus, un algorithme d'ordonn
 5. Des requêtes pour les morceaux urgents peuvent être envoyées sur plusieurs connexions virtuelles afin de faciliter une lecture fluide.
 6. Les autres parties de l'algorithme fonctionnent de la même façon qu'un téléchargement de fichier.
 
-- **Environment variables of the pre-allocation algorithm**  
+<!-- - **Environment variables of the pre-allocation algorithm**   -->
+- **Variables d'environnement de l'algorithme de pré-affectation**
 
 ```
 // Definition of each virtual connection
@@ -240,9 +241,11 @@ pieces := pieces sorted by priority
 - **Pseudocode**
 
 ![pre-schedule](images/pre-schedule.png)
-<p style="text-align: center;">Figure 3.1 Illustration of pre-allocation</p>
+<!-- <p style="text-align: center;">Figure 3.1 Illustration of pre-allocation</p> -->
+<p style="text-align: center;">Schéma 3.1 Illustration de la pré-affectation</p>
 
-PPIO's P2P transmission network is fully dynamic. Each peer responds to multiple download requests, and potentially to multiple downloading nodes. Each downloading node sends download requests to multiple peers, manages downloaded pieces and deals with potential timeouts and failures from the peers. At the same time, the downloading node itself can be serving download requests, working as a peer to other nodes. By utilizing the two data-driven scheduling algorithms, PPIO's dynamic P2P network can handle an extremely high volume of concurrent data transmission efficiently.
+<!-- PPIO's P2P transmission network is fully dynamic. Each peer responds to multiple download requests, and potentially to multiple downloading nodes. Each downloading node sends download requests to multiple peers, manages downloaded pieces and deals with potential timeouts and failures from the peers. At the same time, the downloading node itself can be serving download requests, working as a peer to other nodes. By utilizing the two data-driven scheduling algorithms, PPIO's dynamic P2P network can handle an extremely high volume of concurrent data transmission efficiently. -->
+Le réseau de transmission P2P de PPIO est entièrement dynamique. Chaque paire répond à plusieurs demandes de téléchargement, et potentiellement à plusieurs noeuds de téléchargement. Chaque noeud de téléchargement envoie des requêtes à plusieurs paires, gère les morceaux téléchargés et doit également gérer les potentielles expirations (timeouts) et échecs des paires. Dans le même temps, le noeud de téléchargement peut lui-même répondre à des demandes de téléchargement, travaillant ainsi comme un paire pour les autres noeuds. En utilisant les 2 algorithmes d'ordonnancement orintés données, le réseau P2P dynamique de PPIO peut gérer un volume très important de téléchargements de données simultanés avec une grande efficacité.
 
 ### 3.2.2. Distributed Database and Routing
 
