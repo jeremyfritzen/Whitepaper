@@ -213,6 +213,13 @@ Un réseau de streaming P2P présente les caractérisques de conception uniques 
 6. Other parts of the algorithm work the same way as in regular file download. -->
 Pour implémenter les prérequis de conception ci-dessus, un algorithme d'ordonnancement est nécessaire pour décider intelligemment depuis quel paire sera téléchargé chaque morceau, comment utiliser les paires pour des téléchargements simultanés, le minuteur de chaque paire, replanifier le téléchargement des morceaux restants et s'adapter aux changements sur le réseau, etc. L'ordonnanceur est aussi conçu pour maximiser la vitesse de téléchargement et limiter les requêtes et la transmission de données en doublon. Voici un résumé de l'algoritheme d'ordonnancement :
 
+1. Comme pour le téléchargement de fichiers, des connexions virtuelles (appelées "tunnels") sont établies avec chaque paire et la vitesse de transmission estimée ($V_{conn}$) est calculée pour chaque connexion virtuelle.
+2. Les morceaux à télécharger sont classés sur la base de leurs propriétés et préaffectés aux connexions virtuelles disponibles en les plaçant dans leur file de téléchargement. L'heure de fin de téléchargement de chaque morceau peut être calculée en se basant sur la vitesse de chaque connexion et le nombre de morceaux restant à téléchargement dans chaque file. En général, les morceaux ayant une plus grande priorité devraient avoir une heure de fin de téléchargement plus petite. Une illustration de l'algorithme de pré-affectation est présentée dans le schéma 3.1.
+3. L'étape 2 est répétée périodiquement et tous les morceaux restants sont réaffectés pour tenir compte des modifications de la vitesse de transmission et de la disponibilité des connexions virtuelles.
+4. Dès qu'un morceau est téléchargé, la vitesse de transmission de la connexion virtuelle est mise à jour, et une requête est immédiatement envoyée pour télécharger le prochain morceau de la file d'attente.
+5. Des requêtes pour les morceaux urgents peuvent être envoyées sur plusieurs connexions virtuelles afin de faciliter une lecture fluide.
+6. Les autres parties de l'algorithme fonctionnent de la même façon qu'un téléchargement de fichier.
+
 - **Environment variables of the pre-allocation algorithm**  
 
 ```
